@@ -24,7 +24,7 @@ def enable_sqlite_foreign_keys(sync_engine) -> None:
 engine = create_async_engine(database_url,
                              pool_pre_ping=True,
                              pool_recycle=300,
-                             echo=True
+                             echo=settings.SQL_ECHO
                              )
 
 if is_sqlite:
