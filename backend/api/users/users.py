@@ -6,15 +6,12 @@ from fastapi_users.authentication import AuthenticationBackend, BearerTransport,
 from fastapi_users.db import SQLAlchemyUserDatabase
 from config.db import get_user_db
 from models.models import User
-
-import os
-
-SECRET = os.getenv("JWT_SECRET", "YYUJSHHDDYGHSUAJH67226FARGEJ_SECURE_KEY_32")
+from config.config import settings
 
 
 class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
-    reset_password_token_secret = SECRET
-    verification_token_secret = SECRET
+    reset_password_token_secret = settings.JWT_SECRET
+    verification_token_secret = settings.JWT_SECRET
 
     async def on_after_register(self, user: User, request: Optional[Request] = None):
         print(f"User {user.id} has registered.")
@@ -34,7 +31,7 @@ bearer_transport = BearerTransport(tokenUrl="auth/jwt/login")
 
 
 def get_jwt_strategy() -> JWTStrategy:
-    return JWTStrategy(secret=SECRET, lifetime_seconds=3600)
+    return JWTStrategy(secret=settings.JWT_SECRET, lifetime_seconds=3600)
 
 
 auth_backend = AuthenticationBackend(
