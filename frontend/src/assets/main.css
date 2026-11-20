@@ -1,0 +1,120 @@
+@import 'tailwindcss';
+
+@theme {
+  /* --font-sans: 'Clash Display', sans-serif; */
+}
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('./font/clash-display/ClashDisplay-Light.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('./font/clash-display/ClashDisplay-Medium.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('./font/clash-display/ClashDisplay-Regular.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('./font/clash-display/ClashDisplay-Semibold.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 600;
+}
+
+:root {
+  /* Lesson Creator design tokens (values from the Figma dashboard design) */
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-primary-strong: #3730a3;
+  --color-primary-soft: #eef2ff;
+  --color-background: #f6f7f9;
+  --color-surface: #ffffff;
+  --color-foreground: #15171a;
+  --color-muted: #667085;
+  --color-subtle: #98a2b3;
+  --color-border: #e4e7ec;
+  --color-border-strong: #d0d5dd;
+  --color-success: #16815d;
+  --color-danger: #d92d20;
+  --color-danger-soft: #fef3f2;
+  --color-avatar: #e0e7ff;
+  --color-avatar-foreground: #5145cd;
+  /* Named to avoid clashing with Tailwind's own --radius-* theme variables */
+  --radius-control: 10px;
+  --radius-card: 14px;
+
+  --font-sans: 'Clash Display', Arial, Helvetica, sans-serif;
+  --text-stat: 700 24px/32px var(--font-sans);
+  --text-auth-headline: 700 32px/40px var(--font-sans);
+  --text-auth-lede: 400 18px/28px var(--font-sans);
+  --text-label-large: 500 18px/28px var(--font-sans);
+  --text-gauge-value: 700 40px/48px var(--font-sans);
+  --text-code-digit: 500 24px/32px var(--font-sans);
+
+  --text-metric: 700 28px/36px var(--font-sans);
+  --text-display: 700 20px/28px var(--font-sans);
+  --text-heading: 700 18px/28px var(--font-sans);
+  /* A card's title in a dialog or panel - the bell's Resource Conflict
+     Detected card (Satoshi Medium 18/24). */
+  --text-dialog-title: 500 18px/24px var(--font-sans);
+  --text-title-strong: 700 16px/24px var(--font-sans);
+  --text-title: 500 16px/24px var(--font-sans);
+  /* A dropdown option in Team & Access: body copy at the larger size. */
+  --text-body-large: 400 16px/24px var(--font-sans);
+  --text-body-strong: 500 14px/20px var(--font-sans);
+  --text-body: 400 14px/20px var(--font-sans);
+  --text-body-sm: 400 13px/18px var(--font-sans);
+  --text-meta: 400 13px/20px var(--font-sans);
+  --text-label: 500 12px/16px var(--font-sans);
+  --text-caption: 400 12px/16px var(--font-sans);
+
+  --text-overline: 500 12px/16px var(--font-sans);
+  --text-overline-tracking: 0.04em;
+
+  --text-overline-small: 500 11px/12px var(--font-sans);
+  --text-overline-small-tracking: 0.02em;
+
+  --text-section-label: 500 14px/20px var(--font-sans);
+
+  --text-tile-value: 600 20px/28px var(--font-sans);
+
+  --text-score: 500 40px/44px var(--font-sans);
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+.label {
+  font: var(--text-caption);
+  text-transform: capitalize;
+}
+
+@utility input {
+  font: var(--text-caption);
+  letter-spacing: 0.02em;
+  border-radius: 1rem;
+  width: 100%;
+  border: 1px solid var(--color-gray-200);
+  padding: 0.6rem 0.75rem;
+
+  /* Native CSS nesting for the focus state */
+  &:focus {
+    border-color: var(--color-indigo-500);
+    outline: none;
+  }
+}

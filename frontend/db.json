@@ -1,0 +1,47 @@
+{
+  "courses": [
+    {
+      "id": "1",
+      "title": "Python course",
+      "price": 99,
+      "description": "learn python from zero to expert",
+      "status": "pending"
+    },
+    {
+      "id": "2",
+      "title": "Vue.js course",
+      "price": 100,
+      "description": "learn vue.js from zero to expert",
+      "status": "pending"
+    },
+    {
+      "id": "3",
+      "title": "javascript course",
+      "price": 60,
+      "description": "learn javascript from zero to expert",
+      "status": "pending"
+    },
+    {
+      "id": "4",
+      "title": "java course",
+      "price": 200,
+      "description": "learn java from zero to expert",
+      "status": "pending"
+    },
+    {
+      "id": "5",
+      "title": "rust course",
+      "price": 200,
+      "description": "learn rust from zero to expert",
+      "status": "pending"
+    },
+    {
+      "id": "6",
+      "title": "go language course",
+      "price": 200,
+      "description": "learn go from zero to expert",
+      "status": "pending"
+    }
+  ],
+  "bookings": []
+}

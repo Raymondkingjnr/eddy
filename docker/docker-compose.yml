@@ -1,0 +1,53 @@
+# Dev stack. Run from the docker/ folder: `docker compose up --build`
+# (or from the repo root: `docker compose -f docker/docker-compose.yml up --build`)
+services:
+  db:
+    image: pgvector/pgvector:pg18 # models.py uses pgvector's Vector column
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-lesson_mentor}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - db-data:/var/lib/postgresql # PG 18+ keeps data in a versioned subfolder
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: ../docker/backend/Dockerfile # path is relative to the context
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-lesson_mentor}
+      JWT_SECRET: ${JWT_SECRET:-dev-only-secret-change-me-0123456789abcdef}
+      FRONTEND_URL: http://localhost:5173
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      - ../backend:/app
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../docker/frontend/Dockerfile
+    environment:
+      # Read by vite.config.ts so the /api proxy reaches the backend container
+      VITE_PROXY_TARGET: http://backend:8000
+    ports:
+      - "5173:5173"
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules # keep container-installed deps; host node_modules is hidden
+    depends_on:
+      - backend
+
+volumes:
+  db-data:
